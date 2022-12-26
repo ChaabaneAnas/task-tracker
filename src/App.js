@@ -29,7 +29,7 @@ const state = [
 function App() {
   const [tasks, setTasks] = useState(state)
   const [toggleAdd, setToggle] = useState(false)
-  const  title = 'Props Task tracker';
+  const  title = 'Task tracker';
 
   // toggle
   const onDoubleClick = (id) => {

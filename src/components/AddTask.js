@@ -53,7 +53,7 @@ const AddTask = ({handleSubmit}) => {
           ></input>
         </div>
 
-        <div className='form-check'>
+        <div className=' mb-2 form-check'>
           <input 
           className='form-check-input'
           type='checkbox' 
