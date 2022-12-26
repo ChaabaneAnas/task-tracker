@@ -29,8 +29,9 @@ const AddTask = ({handleSubmit}) => {
     <div>
       <form onSubmit={sendlocal}>
         <div>
-          <label htmlFor='title' >Task:</label><br />
+          <label className='label-control' htmlFor='title' >Task:</label>
           <input 
+          className='form-control'
           type='text'
           id='title'
           name="title"
@@ -40,8 +41,9 @@ const AddTask = ({handleSubmit}) => {
           ></input>
         </div>
         <div>
-          <label htmlFor='date' onChange={(e) => setInput({...input, date: e.target.value})}>Date:</label><br />
+          <label className='label-control' htmlFor='date' onChange={(e) => setInput({...input, date: e.target.value})}>Date:</label>
           <input 
+          className='form-control'
           type='text'
           id='date'
           name="title" 
@@ -51,18 +53,19 @@ const AddTask = ({handleSubmit}) => {
           ></input>
         </div>
 
-        <div>
+        <div className='form-check'>
           <input 
+          className='form-check-input'
           type='checkbox' 
-          id='date' name="title" 
+          id='check' name="title" 
           checked = {input.reminder}
           placeholder="feb 5th 8:00am"
           onChange={(e) => setInput({...input, reminder: e.target.checked})}
           ></input>
-          <label htmlFor='date'>Date:</label>
+          <label className='form-check-label' htmlFor='check'>reminder</label>
         </div>
 
-        <button type='submit'>Add</button>
+        <button className='btn btn-success' type='submit'>Add</button>
 
       </form>
     </div>
