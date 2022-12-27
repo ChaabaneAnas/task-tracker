@@ -1,55 +1,66 @@
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Header from "./components/Header";
 import Tasks from './components/Tasks'
 import AddTask from "./components/AddTask";
 
-const state = [
-  {
-  id: 1,
-  title: 'doctor apointement',
-  date: 'feb 5th at 2:00pm',
-  reminder: true
-},
-{
-  id: 2,
-  title: 'school meeting',
-  date: 'feb 7th at 8:00am',
-  reminder: true
-},
-{
-  id: 3,
-  title: 'groceries shopping',
-  date: 'feb 7th at 7:00pm',
-  reminder: false
-},
-
-]
 
 function App() {
-  const [tasks, setTasks] = useState(state)
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasks = await fetchTasks()
+      setTasks(tasks)
+    }
+    getTasks()
+  },[])
+  const [tasks, setTasks] = useState([])
   const [toggleAdd, setToggle] = useState(false)
   const  title = 'Task tracker';
 
+  //fetch tasks
+
+  const fetchTasks = async () => {
+    const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+    return data
+  }
+
+
   // toggle
-  const onDoubleClick = (id) => {
+  const onDoubleClick = async (id) => {
+    const toggledTask = {...tasks[id-1], reminder: !tasks[id-1].reminder}
+    await fetch(`http://localhost:5000/tasks/${id}`,{
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'},
+      body: JSON.stringify(toggledTask)
+    })
     setTasks(
-      tasks.map(task => task.id === id  ?
-        {...task, reminder: !task.reminder} : task )
+      tasks.map((task) => task.id === id ? {...task, reminder:!task.reminder } : task)
     )
   }
 
   // delete
-  const onDelete = (id) => {
+  const  onDelete = async (id) => {
+    await fetch(`http://localhost:5000/tasks/${id}`,{
+     method: "DELETE"
+    })
     setTasks(tasks.filter(task => task.id !== id))
   }
 
   //submit
 
-  const handleSubmit = (newTask) => {
-  
+  const handleSubmit = async(newTask) => {
+      const res = await fetch('http://localhost:5000/tasks',{
+      method:'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(newTask),
+    })
+    const data = await res.json()
     setTasks(
-      [...tasks, {id: uuidv4(),...newTask}]
+      [...tasks,data]
     )
   }
 
