@@ -60,12 +60,11 @@ After you're finished please remove all the comments and instructions!
 > Describe your project in 1 or 2 sentences.
 
 **[Task tracker]** is a...
+A simple yet powerfull react app that allows the user to keep track of his tasks through out the day...
 
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>
-
-> A simple yet powerfull react app that allows the user to keep track of his tasks through out the day...
 
 <details>
   <summary>Client</summary>
